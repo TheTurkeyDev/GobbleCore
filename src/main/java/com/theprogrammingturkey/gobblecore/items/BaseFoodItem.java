@@ -14,9 +14,9 @@ public class BaseFoodItem extends ItemFood
 	private String itemName = "turkey_unnamed";
 	private List<String> lore = new ArrayList<String>();
 
-	public BaseFoodItem(int replenish, float satMult, boolean bool, String name)
+	public BaseFoodItem(int replenish, float satMult, String name)
 	{
-		this(replenish, satMult, bool, name, 64);
+		this(replenish, satMult, false, name, 64);
 	}
 
 	public BaseFoodItem(int replenish, float satMult, boolean bool, String name, int maxStack)
