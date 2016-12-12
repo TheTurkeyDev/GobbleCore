@@ -13,8 +13,8 @@ buildscript {
 apply plugin: 'net.minecraftforge.gradle.forge'
 
 version= "${mc_version}-${mod_version}"
-group= "com.theprogrammingturkey.turkeycore"
-archivesBaseName= "turkeycore"
+group= "com.theprogrammingturkey.gobblecore"
+archivesBaseName= "GobbleCore"
 
 minecraft {
     version = "${mc_version}-${forge_version}"

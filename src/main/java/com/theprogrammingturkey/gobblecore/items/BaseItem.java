@@ -2,6 +2,8 @@ package com.theprogrammingturkey.gobblecore.items;
 
 import java.util.List;
 
+import org.lwjgl.input.Keyboard;
+
 import com.google.common.collect.Lists;
 
 import net.minecraft.entity.player.EntityPlayer;
@@ -14,6 +16,7 @@ public class BaseItem extends Item
 {
 	private String itemName = "gobble_unnamed";
 	private List<String> lore = Lists.newArrayList();
+	private boolean shiftToShowLore = true;
 
 	public BaseItem(String name)
 	{
@@ -36,11 +39,18 @@ public class BaseItem extends Item
 	{
 		lore.add(info);
 	}
-
-	@SuppressWarnings({ "rawtypes", "unchecked" })
-	@SideOnly(Side.CLIENT)
-	public void addInformation(ItemStack stack, EntityPlayer player, List list, boolean bool)
+	
+	public void setShiftToShowLore(boolean toggle)
 	{
-		list.addAll(lore);
+		this.shiftToShowLore = toggle;
+	}
+
+	@SideOnly(Side.CLIENT)
+	public void addInformation(ItemStack stack, EntityPlayer player, List<String> list, boolean bool)
+	{
+		if(Keyboard.isKeyDown(Keyboard.KEY_LSHIFT) || Keyboard.isKeyDown(Keyboard.KEY_RSHIFT)|| !this.shiftToShowLore)
+			list.addAll(lore);
+		else
+			list.add("Shift for info");
 	}
 }

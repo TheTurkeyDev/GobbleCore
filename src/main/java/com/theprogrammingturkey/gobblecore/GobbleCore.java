@@ -13,8 +13,8 @@ import net.minecraftforge.fml.common.event.FMLPreInitializationEvent;
 @Mod(modid = GobbleCore.MODID, name = GobbleCore.NAME, version = GobbleCore.VERSION)
 public abstract class GobbleCore
 {
-	public static final String MODID = "turkeycore";
-	public static final String NAME = "TurkeyCore";
+	public static final String MODID = "gobblecore";
+	public static final String NAME = "GobbleCore";
 	public static final String VERSION = "@VERSION@";
 
 	@Instance(value = MODID)
