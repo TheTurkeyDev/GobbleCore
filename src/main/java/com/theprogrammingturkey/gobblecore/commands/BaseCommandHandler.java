@@ -20,10 +20,18 @@ public class BaseCommandHandler extends CommandBase
 	private List<String> aliases = new ArrayList<String>();
 
 	private String commandName;
+	
+	private boolean clientSideCommands;
 
 	public BaseCommandHandler(String commandName)
 	{
+		this(commandName, false);
+	}
+	
+	public BaseCommandHandler(String commandName, boolean clientSideCommands)
+	{
 		this.commandName = commandName;
+		this.clientSideCommands = clientSideCommands;
 	}
 
 	public void registerSubCommand(String subName, ISubCommand command)
@@ -47,6 +55,11 @@ public class BaseCommandHandler extends CommandBase
 	public String getCommandName()
 	{
 		return this.commandName;
+	}
+	
+	public boolean isClientSideCommands()
+	{
+		return this.clientSideCommands;
 	}
 
 	@Override
