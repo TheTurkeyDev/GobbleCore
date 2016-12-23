@@ -56,7 +56,6 @@ processResources
 
 build.dependsOn sourceJar
 
-def uploadRepo = "file://${mavendir}"
 publishing {
     tasks.publish.dependsOn 'build'
     publications {
@@ -68,8 +67,11 @@ publishing {
     }
 
     repositories {
-        maven { 
-            url uploadRepo 
+        if (project.hasProperty('mavendir')) {
+            maven { url mavendir }
+        }
+        else{
+        	logger.error('Failed to find maven directory')
         }
     }
 }
