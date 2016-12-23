@@ -65,12 +65,6 @@ publishing {
     }
 
     repositories {
-        if (project.hasProperty('mavendir')) {
-        	logger.info('Maven directory found')
-            maven { url mavendir }
-        }
-        else{
-        	logger.error('Failed to find maven directory')
-        }
+        maven { url ${mavendir} }
     }
 }
