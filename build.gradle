@@ -65,6 +65,7 @@ publishing {
     }
 
     repositories {
-        maven { url ${mavendir} }
+        logger.info('Maven directory: ' + $mavendir)
+        maven { url $mavendir }
     }
 }
