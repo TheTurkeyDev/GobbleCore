@@ -52,6 +52,8 @@ processResources
     }
 }
 
+build.dependsOn sourceJar
+
 publishing {
     tasks.publish.dependsOn 'build'
     publications {
@@ -59,7 +61,6 @@ publishing {
             from components.java
 
             artifact sourceJar
-            artifact deobfJar
         }
     }
 
