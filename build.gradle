@@ -11,6 +11,7 @@ buildscript {
     }
 }
 apply plugin: 'net.minecraftforge.gradle.forge'
+apply plugin: 'maven-publish'
 
 version= "${mc_version}-${mod_version}"
 group= "com.theprogrammingturkey.gobblecore"
@@ -23,7 +24,7 @@ minecraft {
     mappings = "snapshot_20160518"
 	
 	replace "@VERSION@", project.version
-    replaceIn "TurkeyCore.java"
+    replaceIn "GobbleCore.java"
     replaceIn "mcmod.info"
 }
 
@@ -48,5 +49,24 @@ processResources
     // copy everything else, thats not the mcmod.info
     from(sourceSets.main.resources.srcDirs) {
         exclude 'mcmod.info'
+    }
+}
+
+publishing {
+    tasks.publish.dependsOn 'build'
+    publications {
+        mavenJava(MavenPublication) {
+            from components.java
+
+            artifact sourceJar
+            artifact apiJar
+            artifact deobfJar
+        }
+    }
+
+    repositories {
+        if (project.hasProperty('mavendir')) {
+            maven { url mavendir }
+        }
     }
 }
