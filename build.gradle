@@ -54,11 +54,6 @@ processResources
     }
 }
 
-task sourceJar(type: Jar) {
-    from sourceSets.main.allSource
-    classifier = 'sources'
-}
-
 build.dependsOn sourceJar
 
 publishing {
