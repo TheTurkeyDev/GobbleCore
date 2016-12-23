@@ -59,7 +59,6 @@ publishing {
             from components.java
 
             artifact sourceJar
-            artifact apiJar
             artifact deobfJar
         }
     }
