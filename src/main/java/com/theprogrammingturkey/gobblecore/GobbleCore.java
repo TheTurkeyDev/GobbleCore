@@ -33,22 +33,20 @@ public class GobbleCore implements IModCore
 	{
 		ConfigLoader.loadConfigSettings(event.getSuggestedConfigurationFile());
 		ProxyManager.registerModProxy(proxy);
-		
 		ProxyManager.initProxies();
 	}
 
 	@EventHandler
 	public void init(FMLInitializationEvent event)
 	{
-		
 	}
 
 	@EventHandler
 	public void postInit(FMLPostInitializationEvent event)
 	{
-		
+
 	}
-	
+
 	@EventHandler
 	public void serverLoad(FMLServerStartingEvent event)
 	{
