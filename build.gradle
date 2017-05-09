@@ -23,11 +23,16 @@ version = "${mc_version}-${mod_version}.${buildnumber}"
 group= "com.theprogrammingturkey.gobblecore"
 archivesBaseName= "GobbleCore"
 
+sourceCompatibility = targetCompatibility = "1.8"
+compileJava {
+    sourceCompatibility = targetCompatibility = "1.8"
+}
+
 minecraft {
     version = "${mc_version}-${forge_version}"
-    runDir = "run-1.10.2"
+    runDir = "run-1.11.2"
     
-    mappings = "snapshot_20160518"
+    mappings = "snapshot_20161111"
 	
 	replace "@VERSION@", project.version
     replaceIn "GobbleCore.java"
@@ -44,8 +49,7 @@ processResources
     inputs.property "mcversion", project.minecraft.version
 
     from(sourceSets.main.resources.srcDirs) {
-        include 'mcmod.info'
-                
+        include 'mcmod.info'            
         expand 'version':project.version, 'mcversion':project.minecraft.version
     }
         

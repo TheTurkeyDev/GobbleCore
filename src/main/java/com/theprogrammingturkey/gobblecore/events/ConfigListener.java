@@ -14,7 +14,6 @@ public class ConfigListener
 		if(event.getModID().equals(GobbleCore.MODID))
 		{
 			ConfigLoader.config.save();
-			ConfigLoader.refreshSettings();
 		}
 	}
 }
