@@ -18,20 +18,23 @@ public class ConfigErrorReporter
 		errorQueue.add(color + "[" + mod + "]: " + message);
 	}
 
+	public static void outputErrors(EntityPlayer player)
+	{
+		player.addChatMessage(new TextComponentString(TextFormatting.DARK_RED + "Gobble Core has been provided with config errors!"));
+		player.addChatMessage(new TextComponentString(TextFormatting.DARK_RED + "-------------------------------------------------"));
+		for(String s : errorQueue)
+		{
+			player.addChatMessage(new TextComponentString(s));
+		}
+		player.addChatMessage(new TextComponentString(TextFormatting.DARK_RED + "-------------------------------------------------"));
+		errorQueue.clear();
+	}
+
 	@SubscribeEvent
 	public void onPlayerLogin(final PlayerLoggedInEvent event)
 	{
 		EntityPlayer player = event.player;
 		if(player.getServer().isSinglePlayer() || player.getServer().getPlayerList().getOppedPlayers().getGameProfileFromName(player.getName()) != null)
-		{
-			player.addChatMessage(new TextComponentString(TextFormatting.DARK_RED + "Gobble Core has been provided with config errors!"));
-			player.addChatMessage(new TextComponentString(TextFormatting.DARK_RED + "-------------------------------------------------"));
-			for(String s : errorQueue)
-			{
-				player.addChatMessage(new TextComponentString(s));
-			}
-			player.addChatMessage(new TextComponentString(TextFormatting.DARK_RED + "-------------------------------------------------"));
-			errorQueue.clear();
-		}
+			outputErrors(player);
 	}
 }

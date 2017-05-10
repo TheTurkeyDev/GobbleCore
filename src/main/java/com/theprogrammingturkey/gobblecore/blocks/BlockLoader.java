@@ -15,7 +15,7 @@ import net.minecraftforge.fml.common.registry.GameRegistry;
 
 public class BlockLoader
 {
-	private ItemModelMesher mesher = Minecraft.getMinecraft().getRenderItem().getItemModelMesher();
+	private ItemModelMesher mesher;
 
 	private IModCore subMod = GobbleCore.instance;
 
@@ -43,6 +43,11 @@ public class BlockLoader
 	{
 		registerBlock(block, name);
 		GameRegistry.registerTileEntity(tileEntityClass, "tile_" + name);
+	}
+
+	public void initMesher()
+	{
+		mesher = Minecraft.getMinecraft().getRenderItem().getItemModelMesher();
 	}
 
 	public void registerBlockModel(Block b, int meta, String name)

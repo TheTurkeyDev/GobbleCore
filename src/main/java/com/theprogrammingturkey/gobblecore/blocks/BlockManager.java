@@ -24,6 +24,9 @@ public class BlockManager
 	public static void registerModels()
 	{
 		for(CustomEntry<IBlockHandler, BlockLoader> handler : blockHandlers)
+		{
+			handler.getValue().initMesher();
 			handler.getKey().registerModels(handler.getValue());
+		}
 	}
 }
