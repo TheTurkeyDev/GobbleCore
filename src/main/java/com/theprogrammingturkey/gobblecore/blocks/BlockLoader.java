@@ -38,32 +38,10 @@ public class BlockLoader
 		GameRegistry.register(new BaseItemBlock(block).setRegistryName(block.getRegistryName()));
 	}
 
-	public void registerBlock(BaseBlock block, Class<? extends TileEntity> tileEntityClass)
-	{
-		this.registerBlock(block, block.getBlockName());
-		GameRegistry.registerTileEntity(tileEntityClass, "tile_" + block.getBlockName());
-	}
-	
-	public void registerBlock(BaseBlockContainer block, Class<? extends TileEntity> tileEntityClass)
-	{
-		this.registerBlock(block, block.getBlockName());
-		GameRegistry.registerTileEntity(tileEntityClass, "tile_" + block.getBlockName());
-	}
-	
 	public void registerBlock(Block block, Class<? extends TileEntity> tileEntityClass, String name)
 	{
 		this.registerBlock(block, name);
 		GameRegistry.registerTileEntity(tileEntityClass, "tile_" + name);
-	}
-
-	public void registerBlockModel(BaseBlock block, int meta)
-	{
-		this.registerBlockModel(block, meta, block.getBlockName());
-	}
-	
-	public void registerBlockModel(BaseBlockContainer block, int meta)
-	{
-		this.registerBlockModel(block, meta, block.getBlockName());
 	}
 
 	public void registerBlockModel(Block b, int meta, String name)
