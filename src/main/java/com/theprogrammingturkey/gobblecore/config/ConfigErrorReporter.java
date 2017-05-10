@@ -36,8 +36,6 @@ public class ConfigErrorReporter
 	@SubscribeEvent
 	public void onPlayerLogin(final PlayerLoggedInEvent event)
 	{
-		EntityPlayer player = event.player;
-		if(player.getServer().isSinglePlayer() || player.getServer().getPlayerList().getOppedPlayers().getGameProfileFromName(player.getName()) != null)
-			outputErrors(player);
+		outputErrors(event.player);
 	}
 }
