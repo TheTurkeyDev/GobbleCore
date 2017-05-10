@@ -1,5 +1,6 @@
 package com.theprogrammingturkey.gobblecore;
 
+import com.theprogrammingturkey.gobblecore.blocks.BlockManager;
 import com.theprogrammingturkey.gobblecore.commands.CommandManager;
 import com.theprogrammingturkey.gobblecore.config.ConfigLoader;
 import com.theprogrammingturkey.gobblecore.managers.ProxyManager;
@@ -14,6 +15,7 @@ import net.minecraftforge.fml.common.event.FMLInitializationEvent;
 import net.minecraftforge.fml.common.event.FMLPostInitializationEvent;
 import net.minecraftforge.fml.common.event.FMLPreInitializationEvent;
 import net.minecraftforge.fml.common.event.FMLServerStartingEvent;
+import net.minecraftforge.fml.relauncher.Side;
 
 @Mod(modid = GobbleCore.MODID, name = GobbleCore.NAME, version = GobbleCore.VERSION, guiFactory = "com.theprogrammingturkey.gobblecore.gui.ConfigGuiFactory")
 public class GobbleCore implements IModCore
@@ -34,6 +36,14 @@ public class GobbleCore implements IModCore
 		ConfigLoader.loadConfigSettings(event.getSuggestedConfigurationFile());
 		ProxyManager.registerModProxy(proxy);
 		ProxyManager.initProxies();
+
+		BlockManager.registerBlocks();
+		// ItemManager.registerItems();
+		if(event.getSide() == Side.CLIENT)
+		{
+			BlockManager.registerModels();
+			// ItemManager.registerModels();
+		}
 	}
 
 	@EventHandler
