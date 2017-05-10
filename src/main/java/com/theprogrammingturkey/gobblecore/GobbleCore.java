@@ -39,16 +39,16 @@ public class GobbleCore implements IModCore
 
 		BlockManager.registerBlocks();
 		// ItemManager.registerItems();
-		if(event.getSide() == Side.CLIENT)
-		{
-			BlockManager.registerModels();
-			// ItemManager.registerModels();
-		}
 	}
 
 	@EventHandler
 	public void init(FMLInitializationEvent event)
 	{
+		if(event.getSide() == Side.CLIENT)
+		{
+			BlockManager.registerModels();
+			// ItemManager.registerModels();
+		}
 	}
 
 	@EventHandler
