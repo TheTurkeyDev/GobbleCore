@@ -5,7 +5,6 @@ import com.theprogrammingturkey.gobblecore.IModCore;
 import com.theprogrammingturkey.gobblecore.items.BaseItemBlock;
 
 import net.minecraft.block.Block;
-import net.minecraft.client.Minecraft;
 import net.minecraft.client.renderer.ItemModelMesher;
 import net.minecraft.client.renderer.block.model.ModelResourceLocation;
 import net.minecraft.creativetab.CreativeTabs;
@@ -15,8 +14,6 @@ import net.minecraftforge.fml.common.registry.GameRegistry;
 
 public class BlockLoader
 {
-	private ItemModelMesher mesher;
-
 	private IModCore subMod = GobbleCore.instance;
 
 	private CreativeTabs tab = null;
@@ -45,12 +42,7 @@ public class BlockLoader
 		GameRegistry.registerTileEntity(tileEntityClass, "tile_" + name);
 	}
 
-	public void initMesher()
-	{
-		mesher = Minecraft.getMinecraft().getRenderItem().getItemModelMesher();
-	}
-
-	public void registerBlockModel(Block b, int meta, String name)
+	public void registerBlockModel(ItemModelMesher mesher, Block b, int meta, String name)
 	{
 		mesher.register(Item.getItemFromBlock(b), meta, new ModelResourceLocation(subMod.getModID() + ":" + name, "inventory"));
 	}

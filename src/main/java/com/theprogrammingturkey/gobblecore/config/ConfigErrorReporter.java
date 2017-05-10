@@ -20,14 +20,17 @@ public class ConfigErrorReporter
 
 	public static void outputErrors(EntityPlayer player)
 	{
-		player.addChatMessage(new TextComponentString(TextFormatting.DARK_RED + "Gobble Core has been provided with config errors!"));
-		player.addChatMessage(new TextComponentString(TextFormatting.DARK_RED + "-------------------------------------------------"));
-		for(String s : errorQueue)
+		if(errorQueue.size() > 0)
 		{
-			player.addChatMessage(new TextComponentString(s));
+			player.addChatMessage(new TextComponentString(TextFormatting.DARK_RED + "Gobble Core has been provided with config errors!"));
+			player.addChatMessage(new TextComponentString(TextFormatting.DARK_RED + "-------------------------------------------------"));
+			for(String s : errorQueue)
+			{
+				player.addChatMessage(new TextComponentString(s));
+			}
+			player.addChatMessage(new TextComponentString(TextFormatting.DARK_RED + "-------------------------------------------------"));
+			errorQueue.clear();
 		}
-		player.addChatMessage(new TextComponentString(TextFormatting.DARK_RED + "-------------------------------------------------"));
-		errorQueue.clear();
 	}
 
 	@SubscribeEvent
