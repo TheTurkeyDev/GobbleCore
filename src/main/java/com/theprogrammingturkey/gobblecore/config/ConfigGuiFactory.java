@@ -1,4 +1,4 @@
-package com.theprogrammingturkey.gobblecore.gui;
+package com.theprogrammingturkey.gobblecore.config;
 
 import java.util.Set;
 
@@ -11,7 +11,7 @@ public class ConfigGuiFactory implements IModGuiFactory
 	@Override
 	public void initialize(Minecraft minecraftInstance)
 	{
-		
+
 	}
 
 	@Override
@@ -26,10 +26,10 @@ public class ConfigGuiFactory implements IModGuiFactory
 		return null;
 	}
 
-	@SuppressWarnings("deprecation")
 	@Override
 	public RuntimeOptionGuiHandler getHandlerFor(RuntimeOptionCategoryElement element)
 	{
 		return null;
 	}
+
 }

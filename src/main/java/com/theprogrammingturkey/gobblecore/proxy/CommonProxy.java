@@ -1,6 +1,7 @@
 package com.theprogrammingturkey.gobblecore.proxy;
 
 import com.theprogrammingturkey.gobblecore.config.ConfigErrorReporter;
+import com.theprogrammingturkey.gobblecore.config.ConfigLoader;
 import com.theprogrammingturkey.gobblecore.events.EventManager;
 import com.theprogrammingturkey.gobblecore.events.TickListener;
 
@@ -23,13 +24,14 @@ public class CommonProxy implements IBaseProxy
 	{
 
 	}
-	
+
 	public void registerEvents()
 	{
 		EventManager.registerListener(new TickListener());
 		EventManager.registerListener(new ConfigErrorReporter());
+		EventManager.registerListener(new ConfigLoader());
 	}
-	
+
 	public EntityPlayer getClientPlayer()
 	{
 		return null;
