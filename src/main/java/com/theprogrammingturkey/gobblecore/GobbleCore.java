@@ -7,6 +7,7 @@ import com.theprogrammingturkey.gobblecore.blocks.BlockManager;
 import com.theprogrammingturkey.gobblecore.commands.CommandManager;
 import com.theprogrammingturkey.gobblecore.config.ConfigLoader;
 import com.theprogrammingturkey.gobblecore.config.GobbleCoreSettings;
+import com.theprogrammingturkey.gobblecore.items.ItemManager;
 import com.theprogrammingturkey.gobblecore.managers.ProxyManager;
 import com.theprogrammingturkey.gobblecore.managers.WebHookManager;
 import com.theprogrammingturkey.gobblecore.managers.WebHookManager.ModWebHook;
@@ -47,7 +48,7 @@ public class GobbleCore implements IModCore
 		ProxyManager.initProxies();
 
 		BlockManager.registerBlocks();
-		// ItemManager.registerItems();
+		ItemManager.registerItems();
 	}
 
 	@EventHandler
@@ -56,7 +57,7 @@ public class GobbleCore implements IModCore
 		if(event.getSide() == Side.CLIENT)
 		{
 			BlockManager.registerModels();
-			// ItemManager.registerModels();
+			ItemManager.registerModels();
 		}
 	}
 
