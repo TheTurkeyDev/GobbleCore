@@ -1,9 +1,15 @@
 package com.theprogrammingturkey.gobblecore;
 
+import org.apache.logging.log4j.Logger;
+
+import com.google.gson.JsonElement;
 import com.theprogrammingturkey.gobblecore.blocks.BlockManager;
 import com.theprogrammingturkey.gobblecore.commands.CommandManager;
 import com.theprogrammingturkey.gobblecore.config.ConfigLoader;
+import com.theprogrammingturkey.gobblecore.config.GobbleCoreSettings;
 import com.theprogrammingturkey.gobblecore.managers.ProxyManager;
+import com.theprogrammingturkey.gobblecore.managers.WebHookManager;
+import com.theprogrammingturkey.gobblecore.managers.WebHookManager.ModWebHook;
 import com.theprogrammingturkey.gobblecore.proxy.IBaseProxy;
 
 import net.minecraft.command.CommandHandler;
@@ -17,7 +23,7 @@ import net.minecraftforge.fml.common.event.FMLPreInitializationEvent;
 import net.minecraftforge.fml.common.event.FMLServerStartingEvent;
 import net.minecraftforge.fml.relauncher.Side;
 
-@Mod(modid = GobbleCore.MODID, name = GobbleCore.NAME, version = GobbleCore.VERSION, guiFactory = "com.theprogrammingturkey.gobblecore.gui.ConfigGuiFactory")
+@Mod(modid = GobbleCore.MODID, name = GobbleCore.NAME, version = GobbleCore.VERSION, guiFactory = "com.theprogrammingturkey.gobblecore.client.gui.ConfigGuiFactory")
 public class GobbleCore implements IModCore
 {
 	public static final String MODID = "gobblecore";
@@ -30,9 +36,12 @@ public class GobbleCore implements IModCore
 	@SidedProxy(clientSide = "com.theprogrammingturkey.gobblecore.proxy.ClientProxy", serverSide = "com.theprogrammingturkey.gobblecore.proxy.CommonProxy")
 	public static IBaseProxy proxy;
 
+	public static Logger logger;
+
 	@EventHandler
 	public void load(FMLPreInitializationEvent event)
 	{
+		logger = event.getModLog();
 		ConfigLoader.loadConfigSettings(event.getSuggestedConfigurationFile());
 		ProxyManager.registerModProxy(proxy);
 		ProxyManager.initProxies();
@@ -54,7 +63,18 @@ public class GobbleCore implements IModCore
 	@EventHandler
 	public void postInit(FMLPostInitializationEvent event)
 	{
+		if(GobbleCoreSettings.allowWebServerConnect)
+		{
+			WebHookManager.registerHook(new ModWebHook(this)
+			{
+				@Override
+				public void onResponse(JsonElement json)
+				{
+				}
+			});
 
+			WebHookManager.processHooks();
+		}
 	}
 
 	@EventHandler

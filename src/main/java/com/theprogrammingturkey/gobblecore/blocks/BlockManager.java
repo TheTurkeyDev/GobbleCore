@@ -6,8 +6,6 @@ import java.util.List;
 import com.theprogrammingturkey.gobblecore.IModCore;
 import com.theprogrammingturkey.gobblecore.util.CustomEntry;
 
-import net.minecraft.client.Minecraft;
-
 public class BlockManager
 {
 	private static List<CustomEntry<IBlockHandler, BlockLoader>> blockHandlers = new ArrayList<CustomEntry<IBlockHandler, BlockLoader>>();
@@ -27,7 +25,7 @@ public class BlockManager
 	{
 		for(CustomEntry<IBlockHandler, BlockLoader> handler : blockHandlers)
 		{
-			handler.getKey().registerModels(handler.getValue(), Minecraft.getMinecraft().getRenderItem().getItemModelMesher());
+			handler.getKey().registerModels(handler.getValue());
 		}
 	}
 }
