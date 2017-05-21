@@ -12,13 +12,9 @@ public class ItemManager
 
 	public static void registerItemHandler(IItemHandler handler, IModCore mod)
 	{
-		itemHandlers.add(new CustomEntry<IItemHandler, ItemLoader>(handler, new ItemLoader(mod)));
-	}
-
-	public static void registerItems()
-	{
-		for(CustomEntry<IItemHandler, ItemLoader> handler : itemHandlers)
-			handler.getKey().registerItems(handler.getValue());
+		ItemLoader loader = new ItemLoader(mod);
+		itemHandlers.add(new CustomEntry<IItemHandler, ItemLoader>(handler, loader));
+		handler.registerItems(loader);
 	}
 
 	public static void registerModels()

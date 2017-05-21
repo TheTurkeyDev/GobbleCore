@@ -12,13 +12,9 @@ public class BlockManager
 
 	public static void registerBlockHandler(IBlockHandler handler, IModCore mod)
 	{
-		blockHandlers.add(new CustomEntry<IBlockHandler, BlockLoader>(handler, new BlockLoader(mod)));
-	}
-
-	public static void registerBlocks()
-	{
-		for(CustomEntry<IBlockHandler, BlockLoader> handler : blockHandlers)
-			handler.getKey().registerBlocks(handler.getValue());
+		BlockLoader loader = new BlockLoader(mod);
+		blockHandlers.add(new CustomEntry<IBlockHandler, BlockLoader>(handler, loader));
+		handler.registerBlocks(loader);
 	}
 
 	public static void registerModels()

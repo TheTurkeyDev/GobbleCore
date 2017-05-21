@@ -45,10 +45,6 @@ public class GobbleCore implements IModCore
 		logger = event.getModLog();
 		ConfigLoader.loadConfigSettings(event.getSuggestedConfigurationFile());
 		ProxyManager.registerModProxy(proxy);
-		ProxyManager.initProxies();
-
-		BlockManager.registerBlocks();
-		ItemManager.registerItems();
 	}
 
 	@EventHandler
