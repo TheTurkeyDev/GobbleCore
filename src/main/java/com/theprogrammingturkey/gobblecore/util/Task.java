@@ -8,11 +8,29 @@ public abstract class Task
 
 	public int updateTick;
 
+	/**
+	 * Creates a task that runs for a given amount of time then calls its callback function.
+	 * 
+	 * @param name
+	 *            of the task. Not really used for anything yet.
+	 * @param delay
+	 *            in ticks the task runs for before calling its callback function.
+	 */
 	public Task(String name, int delay)
 	{
 		this(name, delay, -1);
 	}
 
+	/**
+	 * Creates a task that runs for a given amount of time then calls its callback function, but also calls an update function every specified interval.
+	 * 
+	 * @param name
+	 *            of the task. Not really used for anything yet.
+	 * @param delay
+	 *            in ticks the task runs for before calling its callback function. Set to -1 to run forever and never call the callback function.
+	 * @param updateTick
+	 *            interval in ticks that the task should call its update function.
+	 */
 	public Task(String name, int delay, int updateTick)
 	{
 		this.name = name;

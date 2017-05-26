@@ -17,7 +17,6 @@ public class WebHookManager
 		mods.add(modHook);
 	}
 
-	@SuppressWarnings("unchecked")
 	public static void processHooks()
 	{
 		List<CustomEntry<String, String>> params = new ArrayList<CustomEntry<String, String>>();
@@ -28,7 +27,7 @@ public class WebHookManager
 		JsonElement json;
 		try
 		{
-			json = HTTPUtil.getWebFile("https://api.theprogrammingturkey.com/GobbleCoreAPI.php", (CustomEntry<String, String>[]) params.toArray());
+			json = HTTPUtil.getWebFile("https://api.theprogrammingturkey.com/GobbleCoreAPI.php", params);
 		} catch(Exception e)
 		{
 			e.printStackTrace();

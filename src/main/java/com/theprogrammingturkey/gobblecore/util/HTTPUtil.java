@@ -4,6 +4,7 @@ import java.io.BufferedInputStream;
 import java.io.DataOutputStream;
 import java.net.HttpURLConnection;
 import java.net.URL;
+import java.util.List;
 
 import org.apache.logging.log4j.Level;
 
@@ -15,8 +16,7 @@ public class HTTPUtil
 {
 	private static JsonParser json = new JsonParser();
 
-	@SafeVarargs
-	public static JsonElement getWebFile(String link, CustomEntry<String, String>... extras) throws Exception
+	public static JsonElement getWebFile(String link, List<CustomEntry<String, String>> extras) throws Exception
 	{
 		HttpURLConnection con = (HttpURLConnection) new URL(link).openConnection();
 		con.setDoOutput(true);
