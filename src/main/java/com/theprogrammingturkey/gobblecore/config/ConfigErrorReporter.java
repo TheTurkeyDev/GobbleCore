@@ -34,7 +34,7 @@ public class ConfigErrorReporter
 	}
 
 	@SubscribeEvent
-	public void onPlayerLogin(final PlayerLoggedInEvent event)
+	public void onPlayerLogin(PlayerLoggedInEvent event)
 	{
 		outputErrors(event.player);
 	}

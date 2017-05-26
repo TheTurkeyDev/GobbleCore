@@ -12,14 +12,19 @@ public class ClientProxy extends CommonProxy
 		return true;
 	}
 
+	public void registerGuis()
+	{
+		super.registerGuis();
+	}
+
 	public void registerRenderings()
 	{
-
+		super.registerRenderings();
 	}
 
 	public void registerEvents()
 	{
-
+		super.registerEvents();
 	}
 
 	@Override

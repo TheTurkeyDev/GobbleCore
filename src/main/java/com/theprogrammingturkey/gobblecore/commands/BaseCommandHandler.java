@@ -20,14 +20,20 @@ public class BaseCommandHandler extends CommandBase
 	private List<String> aliases = new ArrayList<String>();
 
 	private String commandName;
-	
+
 	private boolean clientSideCommands;
 
 	public BaseCommandHandler(String commandName)
 	{
 		this(commandName, false);
 	}
-	
+
+	/**
+	 * Clientside is currently irrelevant
+	 * 
+	 * @param commandName
+	 * @param clientSideCommands
+	 */
 	public BaseCommandHandler(String commandName, boolean clientSideCommands)
 	{
 		this.commandName = commandName;
@@ -56,7 +62,7 @@ public class BaseCommandHandler extends CommandBase
 	{
 		return this.commandName;
 	}
-	
+
 	public boolean isClientSideCommands()
 	{
 		return this.clientSideCommands;
@@ -100,7 +106,7 @@ public class BaseCommandHandler extends CommandBase
 		}
 		if(args[0].equalsIgnoreCase("help") || args[0].equalsIgnoreCase("h"))
 		{
-			
+
 		}
 		else if(commandList.containsKey(args[0].toLowerCase()))
 		{
