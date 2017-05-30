@@ -3,9 +3,11 @@ package com.theprogrammingturkey.gobblecore.network;
 import java.util.HashMap;
 import java.util.Map;
 
+import com.theprogrammingturkey.gobblecore.GobbleCore;
 import com.theprogrammingturkey.gobblecore.IModCore;
 import com.theprogrammingturkey.gobblecore.util.CustomEntry;
 
+import net.minecraftforge.fml.common.Loader;
 import net.minecraftforge.fml.common.network.simpleimpl.SimpleNetworkWrapper;
 
 public class NetworkManager
@@ -21,9 +23,11 @@ public class NetworkManager
 	{
 		for(IModCore mod : networkHandlers.keySet())
 		{
+			Loader.instance().setActiveModContainer(Loader.instance().getIndexedModList().get(mod.getModID()));
 			CustomEntry<INetworkHandler, NetworkLoader> values = networkHandlers.get(mod);
 			values.getKey().registerPacket(values.getValue());
 		}
+		Loader.instance().setActiveModContainer(Loader.instance().getIndexedModList().get(GobbleCore.MODID));
 	}
 
 	public static SimpleNetworkWrapper getSimpleNetwork(IModCore mod)
