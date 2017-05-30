@@ -15,7 +15,7 @@ public class BlockManager
 
 	public static void registerBlockHandler(IBlockHandler handler, IModCore mod)
 	{
-		blockHandlers.get(new CustomEntry<IBlockHandler, BlockLoader>(handler, new BlockLoader(mod)));
+		blockHandlers.put(mod, new CustomEntry<IBlockHandler, BlockLoader>(handler, new BlockLoader(mod)));
 	}
 
 	public static void registerBlocks()
