@@ -26,4 +26,9 @@ public class NetworkLoader
 	{
 		simpleNetwork.registerMessage(messageHandler, requestMessageType, id++, side);
 	}
+
+	public SimpleNetworkWrapper getSimpleNetwork()
+	{
+		return this.simpleNetwork;
+	}
 }

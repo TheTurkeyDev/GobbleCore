@@ -9,7 +9,7 @@ public class EntityManager
 {
 	private static Map<IEntityHandler, EntityLoader> entityHandlers = new HashMap<IEntityHandler, EntityLoader>();
 
-	public static void registerItemHandler(IEntityHandler handler, IModCore mod)
+	public static void registerEntityHandler(IEntityHandler handler, IModCore mod)
 	{
 		entityHandlers.put(handler, new EntityLoader(mod));
 	}
