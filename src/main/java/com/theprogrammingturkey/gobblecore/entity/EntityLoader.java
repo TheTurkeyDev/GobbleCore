@@ -32,7 +32,7 @@ public class EntityLoader
 		EntityRegistry.registerModEntity(new ResourceLocation(subMod.getModID(), name), entityClass, name, id++, subMod, trackingRange, updateFrequency, sendsVelocityUpdates, eggPrimary, eggSecondary);
 	}
 
-	public <T extends Entity> void registerEntityRendering(Class<T> entityClass, Class<Render<T>> renderer)
+	public <T extends Entity> void registerEntityRendering(Class<T> entityClass, Class<? extends Render<T>> renderer)
 	{
 		RenderingRegistry.registerEntityRenderingHandler(entityClass, new IRenderFactory<T>()
 		{
