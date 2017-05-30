@@ -52,6 +52,11 @@ public class GobbleCore implements IModCore
 		ItemManager.registerItems();
 		EntityManager.registerEntities();
 		NetworkManager.registerPackets();
+
+		if(event.getSide() == Side.CLIENT)
+		{
+			EntityManager.registerRenderings();
+		}
 	}
 
 	@EventHandler
@@ -61,7 +66,6 @@ public class GobbleCore implements IModCore
 		{
 			BlockManager.registerModels();
 			ItemManager.registerModels();
-			EntityManager.registerRenderings();
 		}
 	}
 
