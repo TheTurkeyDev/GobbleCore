@@ -1,25 +1,28 @@
 package com.theprogrammingturkey.gobblecore.items;
 
-import java.util.ArrayList;
-import java.util.List;
+import java.util.HashMap;
+import java.util.Map;
 
 import com.theprogrammingturkey.gobblecore.IModCore;
-import com.theprogrammingturkey.gobblecore.util.CustomEntry;
 
 public class ItemManager
 {
-	private static List<CustomEntry<IItemHandler, ItemLoader>> itemHandlers = new ArrayList<CustomEntry<IItemHandler, ItemLoader>>();
+	private static Map<IItemHandler, ItemLoader> itemHandlers = new HashMap<IItemHandler, ItemLoader>();
 
 	public static void registerItemHandler(IItemHandler handler, IModCore mod)
 	{
-		ItemLoader loader = new ItemLoader(mod);
-		itemHandlers.add(new CustomEntry<IItemHandler, ItemLoader>(handler, loader));
-		handler.registerItems(loader);
+		itemHandlers.put(handler, new ItemLoader(mod));
+	}
+
+	public static void registerItems()
+	{
+		for(IItemHandler handler : itemHandlers.keySet())
+			handler.registerItems(itemHandlers.get(handler));
 	}
 
 	public static void registerModels()
 	{
-		for(CustomEntry<IItemHandler, ItemLoader> handler : itemHandlers)
-			handler.getKey().registerModels(handler.getValue());
+		for(IItemHandler handler : itemHandlers.keySet())
+			handler.registerModels(itemHandlers.get(handler));
 	}
 }

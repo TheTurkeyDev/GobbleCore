@@ -12,32 +12,11 @@ import net.minecraft.item.ItemStack;
 import net.minecraft.nbt.NBTTagCompound;
 import net.minecraft.util.ResourceLocation;
 import net.minecraft.util.math.BlockPos;
-import net.minecraft.util.text.TextComponentString;
 import net.minecraft.world.World;
 
 public class GameUtil
 {
 	private static Random rand = new Random();
-
-	public static void sendMessageToNearPlayers(World world, BlockPos pos, int distance, String message)
-	{
-		for(int i = 0; i < world.playerEntities.size(); ++i)
-		{
-			EntityPlayer entityplayer = (EntityPlayer) world.playerEntities.get(i);
-			double dist = Math.sqrt(Math.pow(pos.getX() - entityplayer.posX, 2) + Math.pow(pos.getY() - entityplayer.posY, 2) + Math.pow(pos.getZ() - entityplayer.posZ, 2));
-			if(dist <= distance)
-				entityplayer.addChatMessage(new TextComponentString(message));
-		}
-	}
-
-	public static void sendMessageToAllPlayers(World world, String message)
-	{
-		for(int i = 0; i < world.playerEntities.size(); ++i)
-		{
-			EntityPlayer entityplayer = (EntityPlayer) world.playerEntities.get(i);
-			entityplayer.addChatMessage(new TextComponentString(message));
-		}
-	}
 
 	public static ItemStack getItemStack(String mod, String itemName, int size)
 	{

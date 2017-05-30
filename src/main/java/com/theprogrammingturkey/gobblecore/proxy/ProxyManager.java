@@ -1,9 +1,7 @@
-package com.theprogrammingturkey.gobblecore.managers;
+package com.theprogrammingturkey.gobblecore.proxy;
 
 import java.util.ArrayList;
 import java.util.List;
-
-import com.theprogrammingturkey.gobblecore.proxy.IBaseProxy;
 
 public class ProxyManager
 {

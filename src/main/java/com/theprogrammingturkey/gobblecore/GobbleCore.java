@@ -7,11 +7,13 @@ import com.theprogrammingturkey.gobblecore.blocks.BlockManager;
 import com.theprogrammingturkey.gobblecore.commands.CommandManager;
 import com.theprogrammingturkey.gobblecore.config.ConfigLoader;
 import com.theprogrammingturkey.gobblecore.config.GobbleCoreSettings;
+import com.theprogrammingturkey.gobblecore.entity.EntityManager;
 import com.theprogrammingturkey.gobblecore.items.ItemManager;
-import com.theprogrammingturkey.gobblecore.managers.ProxyManager;
 import com.theprogrammingturkey.gobblecore.managers.WebHookManager;
 import com.theprogrammingturkey.gobblecore.managers.WebHookManager.ModWebHook;
+import com.theprogrammingturkey.gobblecore.network.NetworkManager;
 import com.theprogrammingturkey.gobblecore.proxy.IBaseProxy;
+import com.theprogrammingturkey.gobblecore.proxy.ProxyManager;
 
 import net.minecraft.command.CommandHandler;
 import net.minecraftforge.fml.common.Mod;
@@ -45,6 +47,11 @@ public class GobbleCore implements IModCore
 		logger = event.getModLog();
 		ConfigLoader.loadConfigSettings(event.getSuggestedConfigurationFile());
 		ProxyManager.registerModProxy(proxy);
+
+		BlockManager.registerBlocks();
+		ItemManager.registerItems();
+		EntityManager.registerEntities();
+		NetworkManager.registerPackets();
 	}
 
 	@EventHandler
@@ -54,6 +61,7 @@ public class GobbleCore implements IModCore
 		{
 			BlockManager.registerModels();
 			ItemManager.registerModels();
+			EntityManager.registerRenderings();
 		}
 	}
 
