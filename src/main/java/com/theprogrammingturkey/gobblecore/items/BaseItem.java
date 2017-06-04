@@ -2,6 +2,8 @@ package com.theprogrammingturkey.gobblecore.items;
 
 import java.util.List;
 
+import org.lwjgl.input.Keyboard;
+
 import com.google.common.collect.Lists;
 
 import net.minecraft.entity.player.EntityPlayer;
@@ -12,13 +14,20 @@ import net.minecraftforge.fml.relauncher.SideOnly;
 
 public class BaseItem extends Item
 {
-	private String itemName = "Chance_Cube_Unnamed";
+	private String itemName = "gobble_unnamed";
 	private List<String> lore = Lists.newArrayList();
+	private boolean shiftToShowLore = true;
 
 	public BaseItem(String name)
 	{
+		this(name, 64);
+	}
+
+	public BaseItem(String name, int maxStack)
+	{
 		itemName = name;
 		this.setUnlocalizedName(name);
+		this.setMaxStackSize(maxStack);
 	}
 
 	public String getItemName()
@@ -31,9 +40,17 @@ public class BaseItem extends Item
 		lore.add(info);
 	}
 
+	public void setShiftToShowLore(boolean toggle)
+	{
+		this.shiftToShowLore = toggle;
+	}
+
 	@SideOnly(Side.CLIENT)
 	public void addInformation(ItemStack stack, EntityPlayer player, List<String> list, boolean bool)
 	{
-		list.addAll(lore);
+		if(Keyboard.isKeyDown(Keyboard.KEY_LSHIFT) || Keyboard.isKeyDown(Keyboard.KEY_RSHIFT) || !this.shiftToShowLore)
+			list.addAll(lore);
+		else
+			list.add("Shift for info");
 	}
 }

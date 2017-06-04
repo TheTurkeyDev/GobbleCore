@@ -26,12 +26,13 @@ import net.minecraftforge.fml.common.event.FMLPreInitializationEvent;
 import net.minecraftforge.fml.common.event.FMLServerStartingEvent;
 import net.minecraftforge.fml.relauncher.Side;
 
-@Mod(modid = GobbleCore.MODID, name = GobbleCore.NAME, version = GobbleCore.VERSION, guiFactory = "com.theprogrammingturkey.gobblecore.client.gui.ConfigGuiFactory")
+@Mod(modid = GobbleCore.MODID, name = GobbleCore.NAME, version = GobbleCore.VERSION, guiFactory = GobbleCore.GUIFACTORY)
 public class GobbleCore implements IModCore
 {
 	public static final String MODID = "gobblecore";
 	public static final String NAME = "GobbleCore";
 	public static final String VERSION = "@VERSION@";
+	public static final String GUIFACTORY = "com.theprogrammingturkey.gobblecore.client.gui.ConfigGuiFactory";
 
 	@Instance(value = MODID)
 	public static GobbleCore instance;
