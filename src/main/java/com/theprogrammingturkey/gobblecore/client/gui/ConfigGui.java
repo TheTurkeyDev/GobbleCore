@@ -1,9 +1,10 @@
-package com.theprogrammingturkey.gobblecore.config;
+package com.theprogrammingturkey.gobblecore.client.gui;
 
 import java.util.ArrayList;
 import java.util.List;
 
 import com.theprogrammingturkey.gobblecore.GobbleCore;
+import com.theprogrammingturkey.gobblecore.config.ConfigLoader;
 
 import net.minecraft.client.gui.GuiScreen;
 import net.minecraftforge.common.config.ConfigElement;

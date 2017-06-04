@@ -1,29 +1,35 @@
 package com.theprogrammingturkey.gobblecore.blocks;
 
-import java.util.ArrayList;
-import java.util.List;
+import java.util.HashMap;
+import java.util.Map;
 
 import com.theprogrammingturkey.gobblecore.IModCore;
 import com.theprogrammingturkey.gobblecore.util.CustomEntry;
 
 public class BlockManager
 {
-	private static List<CustomEntry<IBlockHandler, BlockLoader>> blockHandlers = new ArrayList<CustomEntry<IBlockHandler, BlockLoader>>();
+	private static Map<IModCore, CustomEntry<IBlockHandler, BlockLoader>> blockHandlers = new HashMap<IModCore, CustomEntry<IBlockHandler, BlockLoader>>();
 
 	public static void registerBlockHandler(IBlockHandler handler, IModCore mod)
 	{
-		blockHandlers.add(new CustomEntry<IBlockHandler, BlockLoader>(handler, new BlockLoader(mod)));
+		blockHandlers.put(mod, new CustomEntry<IBlockHandler, BlockLoader>(handler, new BlockLoader(mod)));
 	}
 
 	public static void registerBlocks()
 	{
-		for(CustomEntry<IBlockHandler, BlockLoader> handler : blockHandlers)
-			handler.getKey().registerBlocks(handler.getValue());
+		for(IModCore mod : blockHandlers.keySet())
+		{
+			CustomEntry<IBlockHandler, BlockLoader> values = blockHandlers.get(mod);
+			values.getKey().registerBlocks(values.getValue());
+		}
 	}
 
 	public static void registerModels()
 	{
-		for(CustomEntry<IBlockHandler, BlockLoader> handler : blockHandlers)
-			handler.getKey().registerModels(handler.getValue());
+		for(IModCore mod : blockHandlers.keySet())
+		{
+			CustomEntry<IBlockHandler, BlockLoader> values = blockHandlers.get(mod);
+			values.getKey().registerModels(values.getValue());
+		}
 	}
 }

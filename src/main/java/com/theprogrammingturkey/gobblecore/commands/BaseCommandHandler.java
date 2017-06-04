@@ -4,6 +4,7 @@ import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 
+import com.theprogrammingturkey.gobblecore.IModCore;
 import com.theprogrammingturkey.gobblecore.util.MessageUtil;
 
 import net.minecraft.command.CommandBase;
@@ -20,18 +21,13 @@ public class BaseCommandHandler extends CommandBase
 	private List<String> aliases = new ArrayList<String>();
 
 	private String commandName;
-	
-	private boolean clientSideCommands;
 
-	public BaseCommandHandler(String commandName)
-	{
-		this(commandName, false);
-	}
-	
-	public BaseCommandHandler(String commandName, boolean clientSideCommands)
+	private IModCore mod;
+
+	public BaseCommandHandler(IModCore mod, String commandName)
 	{
 		this.commandName = commandName;
-		this.clientSideCommands = clientSideCommands;
+		this.mod = mod;
 	}
 
 	public void registerSubCommand(String subName, ISubCommand command)
@@ -55,11 +51,6 @@ public class BaseCommandHandler extends CommandBase
 	public String getCommandName()
 	{
 		return this.commandName;
-	}
-	
-	public boolean isClientSideCommands()
-	{
-		return this.clientSideCommands;
 	}
 
 	@Override
@@ -98,9 +89,29 @@ public class BaseCommandHandler extends CommandBase
 			MessageUtil.sendMessageToPlayer(player, " Type /" + commandName + " help for a list of commands!");
 			return;
 		}
-		if(args[0].equalsIgnoreCase("help") || args[0].equalsIgnoreCase("h"))
+		if(args[0].equalsIgnoreCase("help") || args[0].equalsIgnoreCase("h") && args.length == 2)
 		{
-			
+			ISubCommand command = this.commandList.get(args[0].toLowerCase());
+			if(command != null)
+				MessageUtil.sendMessageToPlayer(player, command.getDescription());
+			else
+				MessageUtil.sendMessageToPlayer(player, TextFormatting.DARK_RED + "No such command!");
+		}
+		else if(args[0].equalsIgnoreCase("version") || args[0].equalsIgnoreCase("v"))
+		{
+			MessageUtil.sendMessageToPlayer(player, TextFormatting.GREEN + this.mod.getName() + " version " + this.mod.getVersion());
+		}
+		else if(args[0].equalsIgnoreCase("listCommands") || args[0].equalsIgnoreCase("lc"))
+		{
+			StringBuilder builder = new StringBuilder();
+			builder.append("Valid commands are: ");
+			for(String command : commandList.keySet())
+			{
+				builder.append(command);
+				builder.append(", ");
+			}
+			builder.delete(builder.length() - 2, builder.length());
+			MessageUtil.sendMessageToPlayer(player, builder.toString());
 		}
 		else if(commandList.containsKey(args[0].toLowerCase()))
 		{
@@ -108,7 +119,7 @@ public class BaseCommandHandler extends CommandBase
 		}
 		else
 		{
-			MessageUtil.sendMessageToPlayer(player, TextFormatting.DARK_RED + "No such command! Type /" + commandName + " help for a list of commands and a desctription!");
+			MessageUtil.sendMessageToPlayer(player, TextFormatting.DARK_RED + "No such command! Type /" + commandName + " listcommands or help for a list of commands and a desctription!");
 		}
 	}
 }

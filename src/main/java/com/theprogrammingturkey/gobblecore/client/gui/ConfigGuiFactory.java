@@ -1,4 +1,4 @@
-package com.theprogrammingturkey.gobblecore.config;
+package com.theprogrammingturkey.gobblecore.client.gui;
 
 import java.util.Set;
 

@@ -7,11 +7,13 @@ import com.theprogrammingturkey.gobblecore.blocks.BlockManager;
 import com.theprogrammingturkey.gobblecore.commands.CommandManager;
 import com.theprogrammingturkey.gobblecore.config.ConfigLoader;
 import com.theprogrammingturkey.gobblecore.config.GobbleCoreSettings;
+import com.theprogrammingturkey.gobblecore.entity.EntityManager;
 import com.theprogrammingturkey.gobblecore.items.ItemManager;
-import com.theprogrammingturkey.gobblecore.managers.ProxyManager;
 import com.theprogrammingturkey.gobblecore.managers.WebHookManager;
 import com.theprogrammingturkey.gobblecore.managers.WebHookManager.ModWebHook;
+import com.theprogrammingturkey.gobblecore.network.NetworkManager;
 import com.theprogrammingturkey.gobblecore.proxy.IBaseProxy;
+import com.theprogrammingturkey.gobblecore.proxy.ProxyManager;
 
 import net.minecraft.command.CommandHandler;
 import net.minecraftforge.fml.common.Mod;
@@ -24,12 +26,13 @@ import net.minecraftforge.fml.common.event.FMLPreInitializationEvent;
 import net.minecraftforge.fml.common.event.FMLServerStartingEvent;
 import net.minecraftforge.fml.relauncher.Side;
 
-@Mod(modid = GobbleCore.MODID, name = GobbleCore.NAME, version = GobbleCore.VERSION, guiFactory = "com.theprogrammingturkey.gobblecore.config.ConfigGuiFactory")
+@Mod(modid = GobbleCore.MODID, name = GobbleCore.NAME, version = GobbleCore.VERSION, guiFactory = GobbleCore.GUIFACTORY)
 public class GobbleCore implements IModCore
 {
 	public static final String MODID = "gobblecore";
 	public static final String NAME = "GobbleCore";
 	public static final String VERSION = "@VERSION@";
+	public static final String GUIFACTORY = "com.theprogrammingturkey.gobblecore.client.gui.ConfigGuiFactory";
 
 	@Instance(value = MODID)
 	public static GobbleCore instance;
@@ -46,9 +49,15 @@ public class GobbleCore implements IModCore
 		ConfigLoader.loadConfigSettings(event.getSuggestedConfigurationFile());
 		ProxyManager.registerModProxy(proxy);
 
-		ProxyManager.initProxies();
 		BlockManager.registerBlocks();
 		ItemManager.registerItems();
+		EntityManager.registerEntities();
+		NetworkManager.registerPackets();
+
+		if(event.getSide() == Side.CLIENT)
+		{
+			EntityManager.registerRenderings();
+		}
 	}
 
 	@EventHandler

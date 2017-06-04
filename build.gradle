@@ -63,6 +63,7 @@ publishing {
     tasks.publish.dependsOn 'build'
     publications {
         mavenJava(MavenPublication) {
+        	artifactId 'GobbleCore'
             from components.java
 
             artifact sourceJar

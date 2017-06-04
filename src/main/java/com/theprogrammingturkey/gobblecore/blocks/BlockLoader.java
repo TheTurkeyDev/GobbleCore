@@ -1,10 +1,10 @@
 package com.theprogrammingturkey.gobblecore.blocks;
 
+import com.theprogrammingturkey.gobblecore.GobbleCore;
 import com.theprogrammingturkey.gobblecore.IModCore;
 import com.theprogrammingturkey.gobblecore.items.BaseItemBlock;
 
 import net.minecraft.block.Block;
-import net.minecraft.client.Minecraft;
 import net.minecraft.client.renderer.ItemModelMesher;
 import net.minecraft.client.renderer.block.model.ModelResourceLocation;
 import net.minecraft.creativetab.CreativeTabs;
@@ -14,20 +14,18 @@ import net.minecraftforge.fml.common.registry.GameRegistry;
 
 public class BlockLoader
 {
-	private ItemModelMesher mesher = Minecraft.getMinecraft().getRenderItem().getItemModelMesher();
+	private IModCore subMod = GobbleCore.instance;
 
-	private IModCore subMod;
-
-	private CreativeTabs tab;
+	private CreativeTabs tab = null;
 
 	public BlockLoader(IModCore subMod)
 	{
 		this.subMod = subMod;
 	}
 
-	public void registerBlock(BaseBlock block)
+	public void setCreativeTab(CreativeTabs tab)
 	{
-		this.registerBlock(block, block.getBlockName());
+		this.tab = tab;
 	}
 
 	public void registerBlock(Block block, String name)
@@ -40,17 +38,12 @@ public class BlockLoader
 
 	public void registerBlock(Block block, Class<? extends TileEntity> tileEntityClass, String name)
 	{
-		this.registerBlock(block, name);
+		registerBlock(block, name);
 		GameRegistry.registerTileEntity(tileEntityClass, "tile_" + name);
 	}
 
-	public void registerBlockModel(Block b, int meta, String name)
+	public void registerBlockModel(ItemModelMesher mesher, Block b, int meta, String name)
 	{
 		mesher.register(Item.getItemFromBlock(b), meta, new ModelResourceLocation(subMod.getModID() + ":" + name, "inventory"));
-	}
-
-	public void setCreativeTab(CreativeTabs tab)
-	{
-		this.tab = tab;
 	}
 }
