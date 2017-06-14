@@ -11,7 +11,7 @@ public class MessageUtil
 	public static void sendMessageToPlayer(EntityPlayer player, String message)
 	{
 		if(player != null)
-			player.addChatMessage(new TextComponentString(message));
+			player.sendMessage(new TextComponentString(message));
 	}
 
 	public static void sendMessageToNearestPlayer(World world, BlockPos pos, String message)
@@ -68,7 +68,7 @@ public class MessageUtil
 		for(int i = 0; i < world.playerEntities.size(); ++i)
 			sendMessageToPlayer((EntityPlayer) world.playerEntities.get(i), message);
 	}
-	
+
 	public void noPermision(EntityPlayer player, String action)
 	{
 		sendMessageToPlayer(player, TextFormatting.RED + "You do not have permission to " + action + "!");

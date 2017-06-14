@@ -73,7 +73,7 @@ public class GameUtil
 		if(player == null)
 			return false;
 
-		for(EntityPlayerMP playerMP : player.worldObj.getMinecraftServer().getPlayerList().getPlayerList())
+		for(EntityPlayerMP playerMP : player.world.getMinecraftServer().getPlayerList().getPlayers())
 			if(playerMP.getUniqueID().equals(player.getUniqueID()))
 				return true;
 

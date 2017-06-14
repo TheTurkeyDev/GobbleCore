@@ -48,13 +48,13 @@ public class BaseCommandHandler extends CommandBase
 	}
 
 	@Override
-	public String getCommandName()
+	public String getName()
 	{
 		return this.commandName;
 	}
 
 	@Override
-	public String getCommandUsage(ICommandSender icommandsender)
+	public String getUsage(ICommandSender sender)
 	{
 		StringBuilder builder = new StringBuilder();
 		builder.append("/");
@@ -72,7 +72,7 @@ public class BaseCommandHandler extends CommandBase
 	}
 
 	@Override
-	public List<String> getCommandAliases()
+	public List<String> getAliases()
 	{
 		return this.aliases;
 	}
