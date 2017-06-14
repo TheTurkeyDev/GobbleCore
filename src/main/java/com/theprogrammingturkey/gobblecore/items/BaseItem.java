@@ -50,7 +50,7 @@ public class BaseItem extends Item
 	{
 		if(Keyboard.isKeyDown(Keyboard.KEY_LSHIFT) || Keyboard.isKeyDown(Keyboard.KEY_RSHIFT)|| !this.shiftToShowLore)
 			list.addAll(lore);
-		else
+		else if(lore.size() > 0)
 			list.add("Shift for info");
 	}
 }
