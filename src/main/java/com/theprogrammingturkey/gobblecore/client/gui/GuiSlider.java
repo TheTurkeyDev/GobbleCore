@@ -46,7 +46,7 @@ public class GuiSlider extends GuiButton
 			float displayValue = MathHelper.clamp(this.sliderValue, 0F, 1F);
 			if(this.dragging)
 			{
-				this.sliderValue = (float) (mouseX - (this.x + 4)) / (float) (this.width - 8);
+				this.sliderValue = (float) (mouseX - (this.xPosition + 4)) / (float) (this.width - 8);
 				displayValue = MathHelper.clamp(this.sliderValue, 0F, 1F);
 				float f = this.denormalizeValue(displayValue);
 				this.sliderValue = this.normalizeValue(f);
@@ -55,8 +55,8 @@ public class GuiSlider extends GuiButton
 
 			mc.getTextureManager().bindTexture(BUTTON_TEXTURES);
 			GlStateManager.color(1.0F, 1.0F, 1.0F, 1.0F);
-			this.drawTexturedModalRect(this.x + (int) (displayValue * (float) (this.width - 8)), this.y, 0, 66, 4, 20);
-			this.drawTexturedModalRect(this.x + (int) (displayValue * (float) (this.width - 8)) + 4, this.y, 196, 66, 4, 20);
+			this.drawTexturedModalRect(this.xPosition + (int) (displayValue * (float) (this.width - 8)), this.yPosition, 0, 66, 4, 20);
+			this.drawTexturedModalRect(this.xPosition + (int) (displayValue * (float) (this.width - 8)) + 4, this.yPosition, 196, 66, 4, 20);
 		}
 	}
 
@@ -67,7 +67,7 @@ public class GuiSlider extends GuiButton
 	{
 		if(super.mousePressed(mc, mouseX, mouseY))
 		{
-			this.sliderValue = (float) (mouseX - (this.x + 4)) / (float) (this.width - 8);
+			this.sliderValue = (float) (mouseX - (this.xPosition + 4)) / (float) (this.width - 8);
 			this.sliderValue = MathHelper.clamp(this.sliderValue, 0.0F, 1.0F);
 			this.displayString = this.baseDisplay + ": " + this.sliderValue;
 			this.dragging = true;
