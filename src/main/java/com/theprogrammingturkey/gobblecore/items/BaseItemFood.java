@@ -18,9 +18,15 @@ public class BaseItemFood extends ItemFood
 	private List<String> lore = Lists.newArrayList();
 	private boolean shiftToShowLore = true;
 
-	public BaseItemFood(int replenish, float satMult, boolean bool, String name, String texture, int maxStack)
+	public BaseItemFood(String name, int replenish, float satMult, boolean bool)
+	{
+		this(name, replenish, satMult, bool, 64);
+	}
+
+	public BaseItemFood(String name, int replenish, float satMult, boolean bool, int maxStack)
 	{
 		super(replenish, satMult, bool);
+		this.itemName = name;
 		super.setUnlocalizedName(name);
 		this.setMaxStackSize(maxStack);
 	}
