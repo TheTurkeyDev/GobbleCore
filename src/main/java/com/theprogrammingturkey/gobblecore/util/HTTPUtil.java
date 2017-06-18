@@ -38,7 +38,7 @@ public class HTTPUtil
 
 		if(builder.length() > 0)
 			builder.deleteCharAt(builder.length() - 1);
-
+		
 		DataOutputStream wr = new DataOutputStream(con.getOutputStream());
 		wr.writeBytes(builder.toString());
 		wr.flush();
