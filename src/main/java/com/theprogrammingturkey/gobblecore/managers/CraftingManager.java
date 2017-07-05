@@ -15,13 +15,13 @@ public class CraftingManager
 
 	public static void register3x3CompressionRecipe(ItemStack ingredient, ItemStack result, boolean uncraftable)
 	{
-		GameRegistry.addShapedRecipe(name, group, ingredient, "III", "III", "III", 'I', result);
+		GameRegistry.addShapedRecipe(name, group, result, "III", "III", "III", 'I', ingredient);
 		GameRegistry.addShapelessRecipe(name, group, new ItemStack(ingredient.getItem(), 9, ingredient.getItemDamage()), Ingredient.func_193369_a(new ItemStack(result.getItem(), 1, result.getItemDamage())));
 	}
 
 	public static void register2x2CompressionRecipe(ItemStack ingredient, ItemStack result, boolean uncraftable)
 	{
-		GameRegistry.addShapedRecipe(name, group, ingredient, "II", "II", 'I', result);
+		GameRegistry.addShapedRecipe(name, group, result, "II", "II", 'I', ingredient);
 		GameRegistry.addShapelessRecipe(name, group, new ItemStack(ingredient.getItem(), 4, ingredient.getItemDamage()), Ingredient.func_193369_a(new ItemStack(result.getItem(), 1, result.getItemDamage())));
 	}
 

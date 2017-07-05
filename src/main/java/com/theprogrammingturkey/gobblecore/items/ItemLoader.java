@@ -26,6 +26,16 @@ public class ItemLoader
 		this.registry = registry;
 	}
 
+	public void registerItem(BaseItem item)
+	{
+		this.registerItem(item, item.getItemName());
+	}
+
+	public void registerItem(BaseItemFood item)
+	{
+		this.registerItem(item, item.getItemName());
+	}
+
 	public void registerItem(Item item, String name)
 	{
 		item.setRegistryName(subMod.getModID(), name);
@@ -38,6 +48,16 @@ public class ItemLoader
 		Item item = new BaseItemBlock(block).setRegistryName(block.getRegistryName());
 		item.setCreativeTab(tab);
 		registry.register(item);
+	}
+
+	public void registerItemModel(ItemModelMesher mesher, BaseItem item, int meta)
+	{
+		this.registerItemModel(mesher, item, meta, item.getItemName());
+	}
+
+	public void registerItemModel(ItemModelMesher mesher, BaseItemFood item, int meta)
+	{
+		this.registerItemModel(mesher, item, meta, item.getItemName());
 	}
 
 	public void registerItemModel(ItemModelMesher mesher, Item item, int meta, String name)

@@ -34,6 +34,11 @@ public class BlockLoader
 		this.tab = tab;
 	}
 
+	public void registerBlock(BaseBlock block)
+	{
+		this.registerBlock(block, block.getBlockName());
+	}
+
 	public void registerBlock(Block block, String name)
 	{
 		block.setRegistryName(subMod.getModID(), name);
@@ -41,10 +46,20 @@ public class BlockLoader
 		registry.register(block);
 	}
 
+	public void registerBlock(BaseBlock block, Class<? extends TileEntity> tileEntityClass)
+	{
+		this.registerBlock(block, tileEntityClass, block.getBlockName());
+	}
+
 	public void registerBlock(Block block, Class<? extends TileEntity> tileEntityClass, String name)
 	{
 		registerBlock(block, name);
 		GameRegistry.registerTileEntity(tileEntityClass, "tile_" + name);
+	}
+
+	public void registerBlockModel(ItemModelMesher mesher, BaseBlock b, int meta)
+	{
+		this.registerBlockModel(mesher, b, meta, b.getBlockName());
 	}
 
 	public void registerBlockModel(ItemModelMesher mesher, Block b, int meta, String name)
