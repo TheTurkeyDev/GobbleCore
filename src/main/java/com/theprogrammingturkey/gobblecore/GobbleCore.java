@@ -1,12 +1,16 @@
 package com.theprogrammingturkey.gobblecore;
 
+import java.util.Map.Entry;
+
 import org.apache.logging.log4j.Logger;
 
 import com.google.gson.JsonElement;
+import com.google.gson.JsonObject;
 import com.theprogrammingturkey.gobblecore.blocks.BlockManager;
 import com.theprogrammingturkey.gobblecore.commands.CommandManager;
 import com.theprogrammingturkey.gobblecore.config.ConfigLoader;
 import com.theprogrammingturkey.gobblecore.config.GobbleCoreSettings;
+import com.theprogrammingturkey.gobblecore.config.QueuedMessageReporter;
 import com.theprogrammingturkey.gobblecore.entity.EntityManager;
 import com.theprogrammingturkey.gobblecore.items.ItemManager;
 import com.theprogrammingturkey.gobblecore.managers.WebHookManager;
@@ -16,6 +20,7 @@ import com.theprogrammingturkey.gobblecore.proxy.IBaseProxy;
 import com.theprogrammingturkey.gobblecore.proxy.ProxyManager;
 
 import net.minecraft.command.CommandHandler;
+import net.minecraft.util.text.TextFormatting;
 import net.minecraftforge.fml.common.Mod;
 import net.minecraftforge.fml.common.Mod.EventHandler;
 import net.minecraftforge.fml.common.Mod.Instance;
@@ -80,6 +85,25 @@ public class GobbleCore implements IModCore
 				@Override
 				public void onResponse(JsonElement json)
 				{
+					if(json.isJsonObject())
+					{
+						for(Entry<String, JsonElement> task : json.getAsJsonObject().entrySet())
+						{
+							if(task.getKey().equals("Message"))
+							{
+								for(JsonElement messageElement : task.getValue().getAsJsonArray())
+								{
+									JsonObject messageData = messageElement.getAsJsonObject();
+
+									if(messageData.has("Username"))
+										if(proxy.isClient() && !proxy.getClientPlayer().getName().equalsIgnoreCase(messageData.get("Username").getAsString()))
+											continue;
+
+									QueuedMessageReporter.queueMessage(TextFormatting.GREEN, "GobbleCore", messageData.get("Message").getAsString());
+								}
+							}
+						}
+					}
 				}
 			});
 
