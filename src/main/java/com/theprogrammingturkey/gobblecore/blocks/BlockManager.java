@@ -7,7 +7,10 @@ import com.theprogrammingturkey.gobblecore.GobbleCore;
 import com.theprogrammingturkey.gobblecore.IModCore;
 import com.theprogrammingturkey.gobblecore.util.CustomEntry;
 
+import net.minecraft.block.Block;
+import net.minecraftforge.event.RegistryEvent;
 import net.minecraftforge.fml.common.Loader;
+import net.minecraftforge.fml.common.eventhandler.SubscribeEvent;
 
 public class BlockManager
 {
@@ -18,12 +21,14 @@ public class BlockManager
 		blockHandlers.put(mod, new CustomEntry<IBlockHandler, BlockLoader>(handler, new BlockLoader(mod)));
 	}
 
-	public static void registerBlocks()
+	@SubscribeEvent
+	public void onBlockRegistry(RegistryEvent.Register<Block> e)
 	{
 		for(IModCore mod : blockHandlers.keySet())
 		{
 			Loader.instance().setActiveModContainer(Loader.instance().getIndexedModList().get(mod.getModID()));
 			CustomEntry<IBlockHandler, BlockLoader> values = blockHandlers.get(mod);
+			values.getValue().setBlockRegistry(e.getRegistry());
 			values.getKey().registerBlocks(values.getValue());
 		}
 		Loader.instance().setActiveModContainer(Loader.instance().getIndexedModList().get(GobbleCore.MODID));

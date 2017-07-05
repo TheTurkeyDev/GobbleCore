@@ -49,8 +49,6 @@ public class GobbleCore implements IModCore
 		ConfigLoader.loadConfigSettings(event.getSuggestedConfigurationFile());
 		ProxyManager.registerModProxy(proxy);
 
-		BlockManager.registerBlocks();
-		ItemManager.registerItems();
 		EntityManager.registerEntities();
 		NetworkManager.registerPackets();
 
