@@ -98,11 +98,8 @@ public class GobbleCore implements IModCore
 
 									if(messageData.has("Username"))
 									{
-										System.out.println(Minecraft.getMinecraft().getSession().getUsername() + "    " + messageData.get("Username").getAsString());
 										if(proxy.isClient() && Minecraft.getMinecraft().getSession().getUsername().equalsIgnoreCase(messageData.get("Username").getAsString()))
-										{
 											QueuedMessageReporter.queueMessage(TextFormatting.GREEN, "GobbleCore", messageData.get("Message").getAsString());
-										}
 									}
 									else
 									{
