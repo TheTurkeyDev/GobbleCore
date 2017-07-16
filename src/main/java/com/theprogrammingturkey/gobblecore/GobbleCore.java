@@ -19,8 +19,10 @@ import com.theprogrammingturkey.gobblecore.network.NetworkManager;
 import com.theprogrammingturkey.gobblecore.proxy.IBaseProxy;
 import com.theprogrammingturkey.gobblecore.proxy.ProxyManager;
 
+import net.minecraft.client.network.NetHandlerPlayClient;
 import net.minecraft.command.CommandHandler;
 import net.minecraft.util.text.TextFormatting;
+import net.minecraftforge.fml.client.FMLClientHandler;
 import net.minecraftforge.fml.common.Mod;
 import net.minecraftforge.fml.common.Mod.EventHandler;
 import net.minecraftforge.fml.common.Mod.Instance;
@@ -94,10 +96,16 @@ public class GobbleCore implements IModCore
 									JsonObject messageData = messageElement.getAsJsonObject();
 
 									if(messageData.has("Username"))
-										if(proxy.isClient() && !proxy.getClientPlayer().getName().equalsIgnoreCase(messageData.get("Username").getAsString()))
-											continue;
-
-									QueuedMessageReporter.queueMessage(TextFormatting.GREEN, "GobbleCore", messageData.get("Message").getAsString());
+									{
+										NetHandlerPlayClient nhpc = (NetHandlerPlayClient) FMLClientHandler.instance().getClientPlayHandler();
+										if(nhpc != null)
+											if(proxy.isClient() && nhpc.getGameProfile().getName().equalsIgnoreCase(messageData.get("Username").getAsString()))
+												QueuedMessageReporter.queueMessage(TextFormatting.GREEN, "GobbleCore", messageData.get("Message").getAsString());
+									}
+									else
+									{
+										QueuedMessageReporter.queueMessage(TextFormatting.GREEN, "GobbleCore", messageData.get("Message").getAsString());
+									}
 								}
 							}
 						}
