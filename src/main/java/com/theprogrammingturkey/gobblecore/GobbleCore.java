@@ -19,6 +19,7 @@ import com.theprogrammingturkey.gobblecore.network.NetworkManager;
 import com.theprogrammingturkey.gobblecore.proxy.IBaseProxy;
 import com.theprogrammingturkey.gobblecore.proxy.ProxyManager;
 
+import net.minecraft.client.Minecraft;
 import net.minecraft.client.network.NetHandlerPlayClient;
 import net.minecraft.command.CommandHandler;
 import net.minecraft.util.text.TextFormatting;
@@ -89,7 +90,7 @@ public class GobbleCore implements IModCore
 					{
 						for(Entry<String, JsonElement> task : json.getAsJsonObject().entrySet())
 						{
-							if(task.getKey().equals("Message"))
+							if(task.getKey().equals("ChatMessage"))
 							{
 								for(JsonElement messageElement : task.getValue().getAsJsonArray())
 								{
@@ -97,10 +98,11 @@ public class GobbleCore implements IModCore
 
 									if(messageData.has("Username"))
 									{
-										NetHandlerPlayClient nhpc = (NetHandlerPlayClient) FMLClientHandler.instance().getClientPlayHandler();
-										if(nhpc != null)
-											if(proxy.isClient() && nhpc.getGameProfile().getName().equalsIgnoreCase(messageData.get("Username").getAsString()))
-												QueuedMessageReporter.queueMessage(TextFormatting.GREEN, "GobbleCore", messageData.get("Message").getAsString());
+										System.out.println(Minecraft.getMinecraft().getSession().getUsername() + "    " + messageData.get("Username").getAsString());
+										if(proxy.isClient() && Minecraft.getMinecraft().getSession().getUsername().equalsIgnoreCase(messageData.get("Username").getAsString()))
+										{
+											QueuedMessageReporter.queueMessage(TextFormatting.GREEN, "GobbleCore", messageData.get("Message").getAsString());
+										}
 									}
 									else
 									{
