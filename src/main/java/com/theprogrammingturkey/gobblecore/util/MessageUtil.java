@@ -10,8 +10,20 @@ public class MessageUtil
 {
 	public static void sendMessageToPlayer(EntityPlayer player, String message)
 	{
-		if(player != null)
+		if(player != null && GameUtil.isPlayerOnline(player))
 			player.addChatMessage(new TextComponentString(message));
+	}
+
+	public static void sendMessageToPlayer(EntityPlayer player, String message, int delay)
+	{
+		Scheduler.scheduleTask(new Task("Delayed_Message", delay)
+		{
+			@Override
+			public void callback()
+			{
+				sendMessageToPlayer(player, message);
+			}
+		});
 	}
 
 	public static void sendMessageToNearestPlayer(World world, BlockPos pos, String message)
@@ -33,6 +45,18 @@ public class MessageUtil
 			sendMessageToPlayer(nearest, message);
 	}
 
+	public static void sendMessageToNearestPlayer(World world, BlockPos pos, String message, int delay)
+	{
+		Scheduler.scheduleTask(new Task("Delayed_Message", delay)
+		{
+			@Override
+			public void callback()
+			{
+				sendMessageToNearestPlayer(world, pos, message);
+			}
+		});
+	}
+
 	public static void sendMessageToNearestPlayerInRange(World world, BlockPos pos, int distance, String message)
 	{
 		EntityPlayer nearest = null;
@@ -52,6 +76,18 @@ public class MessageUtil
 			sendMessageToPlayer(nearest, message);
 	}
 
+	public static void sendMessageToNearestPlayerInRange(World world, BlockPos pos, int distance, String message, int delay)
+	{
+		Scheduler.scheduleTask(new Task("Delayed_Message", delay)
+		{
+			@Override
+			public void callback()
+			{
+				sendMessageToNearestPlayerInRange(world, pos, distance, message);
+			}
+		});
+	}
+
 	public static void sendMessageToNearPlayers(World world, BlockPos pos, int distance, String message)
 	{
 		for(int i = 0; i < world.playerEntities.size(); ++i)
@@ -63,10 +99,34 @@ public class MessageUtil
 		}
 	}
 
+	public static void sendMessageToNearPlayers(World world, BlockPos pos, int distance, String message, int delay)
+	{
+		Scheduler.scheduleTask(new Task("Delayed_Message", delay)
+		{
+			@Override
+			public void callback()
+			{
+				sendMessageToNearPlayers(world, pos, distance, message);
+			}
+		});
+	}
+
 	public static void sendMessageToAllPlayers(World world, String message)
 	{
 		for(int i = 0; i < world.playerEntities.size(); ++i)
 			sendMessageToPlayer((EntityPlayer) world.playerEntities.get(i), message);
+	}
+
+	public static void sendMessageToAllPlayers(World world, String message, int delay)
+	{
+		Scheduler.scheduleTask(new Task("Delayed_Message", delay)
+		{
+			@Override
+			public void callback()
+			{
+				sendMessageToAllPlayers(world, message);
+			}
+		});
 	}
 
 	public void noPermision(EntityPlayer player, String action)
