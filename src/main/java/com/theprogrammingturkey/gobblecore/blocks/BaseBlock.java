@@ -58,7 +58,8 @@ public class BaseBlock extends Block
 		this.beaconBase = usable;
 	}
 
-	public boolean isBeaconBase(IBlockAccess worldObj, int x, int y, int z, int beaconX, int beaconY, int beaconZ)
+	@Override
+	public boolean isBeaconBase(IBlockAccess worldObj, BlockPos pos, BlockPos beacon)
 	{
 		return this.beaconBase;
 	}
