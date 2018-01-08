@@ -4,7 +4,7 @@ import java.io.BufferedInputStream;
 import java.io.DataOutputStream;
 import java.net.HttpURLConnection;
 import java.net.URL;
-import java.util.List;
+import java.util.Map;
 
 import org.apache.logging.log4j.Level;
 
@@ -16,33 +16,42 @@ public class HTTPUtil
 {
 	private static JsonParser json = new JsonParser();
 
-	public static JsonElement getWebFile(String link, List<CustomEntry<String, String>> extras) throws Exception
+	public static JsonElement getWebFile(String link, RequestType type, Map<String, String> header, Map<String, String> extras) throws Exception
 	{
 		HttpURLConnection con = (HttpURLConnection) new URL(link).openConnection();
 		con.setDoOutput(true);
+		con.setDoInput(true);
 		con.setReadTimeout(5000);
 		con.setRequestProperty("Connection", "keep-alive");
 		con.setRequestProperty("User-Agent", "Mozilla/5.0 (Windows NT 6.1; WOW64; rv:16.0) Gecko/20100101 Firefox/16.0");
-		((HttpURLConnection) con).setRequestMethod("POST");
+
+		if(header != null)
+			for(String headProp : header.keySet())
+				con.setRequestProperty(headProp, header.get(headProp));
+
+		((HttpURLConnection) con).setRequestMethod(type.name());
 		con.setConnectTimeout(5000);
 
 		StringBuilder builder = new StringBuilder();
 
-		for(CustomEntry<String, String> property : extras)
+		if(extras != null)
 		{
-			builder.append(property.getKey());
-			builder.append("=");
-			builder.append(property.getValue());
-			builder.append("&");
+			for(String property : extras.keySet())
+			{
+				builder.append(property);
+				builder.append("=");
+				builder.append(extras.get(property));
+				builder.append("&");
+			}
+
+			if(builder.length() > 0)
+				builder.deleteCharAt(builder.length() - 1);
+
+			DataOutputStream wr = new DataOutputStream(con.getOutputStream());
+			wr.writeBytes(builder.toString());
+			wr.flush();
+			wr.close();
 		}
-
-		if(builder.length() > 0)
-			builder.deleteCharAt(builder.length() - 1);
-
-		DataOutputStream wr = new DataOutputStream(con.getOutputStream());
-		wr.writeBytes(builder.toString());
-		wr.flush();
-		wr.close();
 
 		BufferedInputStream in = new BufferedInputStream(con.getInputStream());
 		int responseCode = con.getResponseCode();
@@ -57,8 +66,11 @@ public class HTTPUtil
 		while((chars_read = in.read()) != -1)
 			buffer.append((char) chars_read);
 
-		String page = buffer.toString();
+		return json.parse(buffer.toString());
+	}
 
-		return json.parse(page);
+	public enum RequestType
+	{
+		GET, POST, PUT, DELETE, UPDATE;
 	}
 }
