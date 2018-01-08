@@ -1,12 +1,14 @@
 package com.theprogrammingturkey.gobblecore.managers;
 
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 import com.google.gson.JsonElement;
 import com.theprogrammingturkey.gobblecore.IModCore;
-import com.theprogrammingturkey.gobblecore.util.CustomEntry;
 import com.theprogrammingturkey.gobblecore.util.HTTPUtil;
+import com.theprogrammingturkey.gobblecore.util.HTTPUtil.RequestType;
 
 public class WebHookManager
 {
@@ -19,15 +21,15 @@ public class WebHookManager
 
 	public static void processHooks()
 	{
-		List<CustomEntry<String, String>> params = new ArrayList<CustomEntry<String, String>>();
+		Map<String, String> params = new HashMap<String, String>();
 
 		for(ModWebHook hook : mods)
-			params.add(new CustomEntry<String, String>(hook.getMod().getName(), hook.getMod().getVersion()));
+			params.put(hook.getMod().getName(), hook.getMod().getVersion());
 
 		JsonElement json;
 		try
 		{
-			json = HTTPUtil.getWebFile("https://api.theprogrammingturkey.com/GobbleCoreAPI.php", params);
+			json = HTTPUtil.getWebFile("https://api.theprogrammingturkey.com/GobbleCoreAPI.php", RequestType.POST, new HashMap<String, String>(), params);
 		} catch(Exception e)
 		{
 			e.printStackTrace();

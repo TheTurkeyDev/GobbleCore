@@ -10,8 +10,20 @@ public class MessageUtil
 {
 	public static void sendMessageToPlayer(EntityPlayer player, String message)
 	{
-		if(player != null)
+		if(player != null && GameUtil.isPlayerOnline(player))
 			player.sendMessage(new TextComponentString(message));
+	}
+
+	public static void sendMessageToPlayer(EntityPlayer player, String message, int delay)
+	{
+		Scheduler.scheduleTask(new Task("Delayed_Message", delay)
+		{
+			@Override
+			public void callback()
+			{
+				sendMessageToPlayer(player, message);
+			}
+		});
 	}
 
 	public static void sendMessageToNearestPlayer(World world, BlockPos pos, String message)
